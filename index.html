@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FT Studios | Create. Inspire. Dominate.</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* =============================
+       CSS CUSTOM PROPERTIES
+    ============================== */
+    :root {
+      --primary-bg: #0a0a0a;
+      --secondary-bg: #111111;
+      --card-bg: #1a1a1a;
+      --primary-text: #ffffff;
+      --secondary-text: #b0b0b0;
+      --accent: #00d4ff;
+      --accent-hover: #00b8e6;
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+      --shadow-hover: 0 30px 60px rgba(0, 212, 255, 0.25);
+      --border-radius: 20px;
+      --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+```
+[data-theme="light"] {
+  --primary-bg: #ffffff;
+  --secondary-bg: #f8f9fa;
+  --card-bg: #ffffff;
+  --primary-text: #2d3436;
+  --secondary-text: #636e72;
+  --accent: #6c5ce7;
+  --accent-hover: #5f3dc4;
+  --shadow: 0 20px 40px rgba(108, 92, 231, 0.15);
+  --shadow-hover: 0 30px 60px rgba(108, 92, 231, 0.25);
+}
+
+/* =============================
+   GLOBAL STYLES
+============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--primary-bg);
+  color: var(--primary-text);
+  overflow-x: hidden;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* =============================
+   UTILITIES
+============================== */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.gradient-text {
+  background: var(--gradient-3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  background: var(--accent-hover);
+}
+
+/* =============================
+   NAVIGATION
+============================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(20px) saturate(1.8);
+  z-index: 1000;
+  transition: var(--transition);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--gradient-3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient-3);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.logo:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--primary-text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 10px;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+  z-index: -1;
+}
+
+.nav-link:hover::before {
+  transform: scaleX(1);
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: white;
+  transform: scale(1.05);
+}
+
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--primary-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* =============================
+   HERO SECTION
+============================== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  background: var(--gradient-3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: float 6s ease-in-out infinite;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  color: var(--secondary-text);
+  margin-bottom: 3rem;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.hero-cta {
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================
+   FLOATING ELEMENTS
+============================== */
+.floating-element {
+  position: absolute;
+  background: var(--gradient);
+  border-radius: 50%;
+  animation: float-random 8s infinite ease-in-out;
+  opacity: 0.1;
+}
+
+.floating-element:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-element:nth-child(2) {
+  width: 150px;
+  height: 150px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.floating-element:nth-child(3) {
+  width: 100px;
+  height: 100px;
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+@keyframes float-random {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-30px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(30px) rotate(240deg);
+  }
+}
+
+/* =============================
+   SECTIONS
+============================== */
+section {
+  padding: 8rem 0;
+  position: relative;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 4rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--secondary-text);
+  max-width: 600px;
+  margin: 0 auto 4rem;
+}
+
+/* =============================
+   CARDS & SERVICES
+============================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.service-card {
+  background: var(--card-bg);
+  padding: 3rem 2rem;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+}
+
+.service-icon {
+  font-size: 3rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1.5rem;
+}
+
+.service-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.service-card p {
+  color: var(--secondary-text);
+  line-height: 1.6;
+}
+
+/* =============================
+   PORTFOLIO SECTION
+============================== */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.portfolio-item {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--card-bg);
+  transition: var(--transition);
+  aspect-ratio: 16/10;
+}
+
+.portfolio-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient);
+  opacity: 0;
+  transition: var(--transition);
+  z-index: 1;
+}
+
+.portfolio-item:hover::before {
+  opacity: 0.9;
+}
+
+.portfolio-item:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow);
+}
+
+.portfolio-content {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  z-index: 2;
+  color: white;
+  opacity: 0;
+  transition: var(--transition);
+  transform: translateY(20px);
+}
+
+.portfolio-item:hover .portfolio-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.portfolio-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.portfolio-item:hover .portfolio-image {
+  transform: scale(1.1);
+}
+
+/* =============================
+   CONTACT FORM
+============================== */
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  padding: 3rem;
+  border-radius: var(--border-radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary-text);
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  background: var(--secondary-bg);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--primary-text);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+textarea.form-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* =============================
+   FOOTER
+============================== */
+footer {
+  background: var(--secondary-bg);
+  padding: 4rem 0 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+  text-align: center;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: var(--card-bg);
+  color: var(--primary-text);
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: var(--transition);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-link:hover {
+  transform: translateY(-5px);
+  background: var(--accent);
+  color: white;
+  box-shadow: var(--shadow);
+}
+
+/* =============================
+   SCROLL ANIMATIONS
+============================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-animation .fade-in {
+  transition-delay: 0s;
+}
+
+.stagger-animation .fade-in:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.stagger-animation .fade-in:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.stagger-animation .fade-in:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
+/* =============================
+   RESPONSIVE DESIGN
+============================== */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    height: 100vh;
+    background: var(--secondary-bg);
+    flex-direction: column;
+    justify-content: center;
+    transition: right 0.3s ease;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-link {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .services-grid,
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-item {
+    min-height: 250px;
+  }
+}
+
+/* =============================
+   CUSTOM SCROLLBAR
+============================== */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
+}
+```
+
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Navigation -->
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">FT Studios</div>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">Über uns</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+        <li><a href="#contact" class="nav-link">Kontakt</a></li>
+        <li><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button></li>
+      </ul>
+      <button class="mobile-menu-toggle" id="mobileToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+
+  <section id="hero" class="hero">
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+
+```
+<div class="hero-content">
+  <h1>FT Studios</h1>
+  <p>Create. Inspire. Dominate.</p>
+  <div class="hero-cta">
+    <a href="#services" class="btn">
+      <i class="fas fa-rocket"></i>
+      Entdecke unsere Services
+    </a>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- About Section -->
+
+  <section id="about" class="fade-in">
+    <div class="container">
+      <h2 class="section-title">Über uns</h2>
+      <p class="section-subtitle">
+        FT Studios steht für Innovation, Kreativität und Premium-Design. Wir erschaffen digitale Erlebnisse, 
+        die nicht nur beeindrucken, sondern auch nachhaltig im Gedächtnis bleiben und echten Mehrwert bieten.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+
+  <section id="services" class="fade-in">
+    <div class="container">
+      <h2 class="section-title">Unsere Services</h2>
+      <p class="section-subtitle">
+        Von der ersten Idee bis zur finalen Umsetzung – wir begleiten Sie auf Ihrem digitalen Weg.
+      </p>
+
+```
+  <div class="services-grid stagger-animation">
+    <div class="service-card fade-in">
+      <div class="service-icon">
+        <i class="fas fa-paint-brush"></i>
+      </div>
+      <h3>Webdesign</h3>
+      <p>Modernes, responsives Design das Ihre Marke perfekt repräsentiert und Benutzer begeistert.</p>
+    </div>
+    
+    <div class="service-card fade-in">
+      <div class="service-icon">
+        <i class="fas fa-tags"></i>
+      </div>
+      <h3>Branding</h3>
+      <p>Entwicklung einer einzigartigen Markenidentität, die Vertrauen schafft und im Gedächtnis bleibt.</p>
+    </div>
+    
+    <div class="service-card fade-in">
+      <div class="service-icon">
+        <i class="fas fa-magic"></i>
+      </div>
+      <h3>Animationen</h3>
+      <p>Lebendige Animationen und Mikrointeraktionen, die Ihre Website zum Leben erwecken.</p>
+    </div>
+    
+    <div class="service-card fade-in">
+      <div class="service-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h3>Digital Marketing</h3>
+      <p>Strategisches Marketing für maximale Reichweite und nachhaltiges Wachstum Ihres Unternehmens.</p>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- Portfolio Section -->
+
+  <section id="portfolio" class="fade-in">
+    <div class="container">
+      <h2 class="section-title">Portfolio</h2>
+      <p class="section-subtitle">
+        Entdecken Sie einige unserer ausgewählten Projekte und lassen Sie sich inspirieren.
+      </p>
+
+```
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop" alt="Projekt 1" class="portfolio-image">
+      <div class="portfolio-content">
+        <h3>E-Commerce Platform</h3>
+        <p>Moderne Online-Shopping Lösung</p>
+      </div>
+    </div>
+    
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=500&fit=crop" alt="Projekt 2" class="portfolio-image">
+      <div class="portfolio-content">
+        <h3>Corporate Website</h3>
+        <p>Professionelle Unternehmens-Präsenz</p>
+      </div>
+    </div>
+    
+    <div class="portfolio-item">
+      <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=500&fit=crop" alt="Projekt 3" class="portfolio-image">
+      <div class="portfolio-content">
+        <h3>Mobile App Design</h3>
+        <p>Intuitive Benutzeroberfläche</p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+
+  <!-- Contact Section -->
+
+  <section id="contact" class="fade-in">
+    <div class="container">
+      <h2 class="section-title">Kontakt</h2>
+      <p class="section-subtitle">
+        Bereit für Ihr nächstes Projekt? Lassen Sie uns gemeinsam etwas Großartiges schaffen.
+      </p>
+
+```
+  <form class="contact-form">
+    <div class="form-group">
+      <label for="name">Ihr Name</label>
+      <input type="text" id="name" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">E-Mail Adresse</label>
+      <input type="email" id="email" class="form-control" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Ihre Nachricht</label>
+      <textarea id="message" class="form-control" required></textarea>
+    </div>
+    
+    <button type="submit" class="btn">
+      <i class="fas fa-paper-plane"></i>
+      Nachricht senden
+    </button>
+  </form>
+</div>
+```
+
+  </section>
+
+  <!-- Footer -->
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+        </div>
+        <p>&copy; 2025 FT Studios. Alle Rechte vorbehalten.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    navMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      body.setAttribute('data-theme', newTheme);
+      
+      const icon = themeToggle.querySelector('i');
+      icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      
+      // Store theme preference
+      localStorage.setItem('theme', newTheme);
+    });
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    body.setAttribute('data-theme', savedTheme);
+    const icon = themeToggle.querySelector('i');
+    icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+    // Scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all fade-in elements
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Form submission
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
