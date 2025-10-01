@@ -1,715 +1,504 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT Studios</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FT‑Studios</title>
+  <meta name="description" content="FT‑Studios builds modern, responsive, and high‑performance websites and web apps that help businesses stand out and grow." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <meta property="og:title" content="FT‑Studios — Modern Web Design & Development" />
+  <meta property="og:description" content="Websites that are fast, engaging, and built with the latest technologies." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='1200' height='630' fill='%230ea5e9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter, Arial' font-size='64' fill='white'%3EFT‑Studios%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='12' ry='12' width='64' height='64' fill='%230ea5e9'/%3E%3Cpath d='M14 22h18v6H20v26h-6V22zm20 0h6l10 14 10-14h6v32h-6V33l-10 13-10-13v21h-6V22z' fill='white'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #0f162e;
+      --card: #121a35;
+      --text: #e6e9f2;
+      --muted: #9aa3b2;
+      --brand: #0ea5e9; /* sky-500 */
+      --brand-2: #22d3ee; /* cyan-400 */
+      --accent: #a78bfa; /* violet-400 */
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(14,165,233,.12), transparent 60%),
+        radial-gradient(900px 400px at 90% 10%, rgba(167,139,250,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      background-attachment: fixed;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container {
+      width: min(1100px, 92%);
+      margin-inline: auto;
+    }
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(11,16,32,0.6);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .3px; }
+    .logo-badge {
+      width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #061021; font-weight: 900;
+      box-shadow: 0 6px 16px rgba(14,165,233,.35);
+    }
+    nav ul { display: flex; gap: 24px; list-style: none; padding: 0; margin: 0; }
+    nav a { color: var(--muted); font-weight: 500; }
+    nav a:hover { color: var(--text); }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: 999px; font-weight: 600; border: 1px solid transparent; transition: .2s ease; }
+    .btn-primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #061021; box-shadow: 0 10px 22px rgba(14,165,233,.35); }
+    .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.05); }
+    .btn-outline { border-color: rgba(255,255,255,.15); color: var(--text); background: rgba(255,255,255,.02); }
+    .btn-outline:hover { border-color: rgba(255,255,255,.3); }
 
-        :root {
-            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --accent-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            --light-bg: #f8fafc;
-            --white: #ffffff;
-            --text-dark: #2d3748;
-            --text-light: #718096;
-            --shadow-soft: 0 10px 30px rgba(0,0,0,0.1);
-            --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
-            --border-radius: 16px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+    /* Hero */
+    .hero { padding: 96px 0 40px; position: relative; overflow: hidden; }
+    .hero h1 { font-size: clamp(2.2rem, 4.2vw + .5rem, 4rem); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 18px; }
+    .sub { color: var(--muted); font-size: clamp(1rem, .8vw + .6rem, 1.25rem); max-width: 760px; }
+    .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 26px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items: center; }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--light-bg);
-            overflow-x: hidden;
-        }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .card.pad { padding: 22px; }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+    .hero-showcase { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    .mockup { aspect-ratio: 16/10; border-radius: 12px; position: relative; overflow: hidden; background: linear-gradient(135deg, rgba(14,165,233,.2), rgba(167,139,250,.2)); border: 1px solid rgba(255,255,255,.08); }
+    .mockup::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, rgba(255,255,255,.04), rgba(255,255,255,.04) 2px, transparent 2px, transparent 10px); mix-blend-mode: overlay; }
+    .mockup .badge { position: absolute; top: 14px; left: 14px; padding: 6px 10px; border-radius: 999px; background: rgba(2,6,23,.6); border: 1px solid rgba(255,255,255,.12); font-size: 12px; color: var(--text); }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,0 1000,300 1000,1000 0,700"/></svg>');
-            animation: float 20s ease-in-out infinite;
-        }
+    /* Stripes / metrics */
+    .stripes { display: grid; gap: 14px; }
+    .stripe { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; padding: 14px; border-radius: 12px; background: rgba(2,6,23,.5); border: 1px dashed rgba(255,255,255,.12); }
+    .stat { font-size: 1.8rem; font-weight: 800; }
+    .label { color: var(--muted); }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(1deg); }
-        }
+    /* Sections */
+    section { padding: 64px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 22px; }
+    .eyebrow { display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.12); color:var(--muted); font-size:12px; background:rgba(255,255,255,.02) }
+    h2 { font-size: clamp(1.6rem, 2.4vw + .6rem, 2.4rem); letter-spacing: -0.02em; margin: 8px 0 0; }
+    p.lead { color: var(--muted); max-width: 820px; }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            padding: 2rem;
-            animation: fadeInUp 1s ease-out;
-        }
+    /* Services */
+    .grid { display: grid; gap: 18px; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .service { padding: 24px; }
+    .service h3 { margin: 0 0 8px; }
+    .pill { display:inline-block; font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); color:var(--muted); }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* Process */
+    .timeline { display:grid; gap:14px; }
+    .step { display:grid; grid-template-columns: 44px 1fr; gap:14px; align-items:start; padding:18px; }
+    .step .num { width:44px; height:44px; border-radius:12px; display:grid; place-items:center; font-weight:800; background:linear-gradient(135deg,var(--brand),var(--accent)); color:#061021; box-shadow:0 8px 20px rgba(14,165,233,.25); }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            color: white;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            animation: slideInLeft 1s ease-out 0.3s both;
-        }
+    /* Work */
+    .work { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .work .item { overflow:hidden; position:relative; }
+    .work .item img { width:100%; height: 220px; object-fit: cover; display:block; border-radius: 12px; border:1px solid rgba(255,255,255,.08); }
+    .work .item .overlay { position:absolute; inset:0; display:grid; place-items:end start; padding:16px; background:linear-gradient(180deg,transparent,rgba(6,16,33,.8)); border-radius:12px; color:#dbeafe; opacity:0; transition:.25s ease; }
+    .work .item:hover .overlay { opacity:1; }
 
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+    /* Testimonials */
+    .quotes { display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+    blockquote { margin:0; padding:22px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); }
+    blockquote .by { color: var(--muted); margin-top: 12px; font-size: 14px; }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2.5rem;
-            animation: slideInRight 1s ease-out 0.6s both;
-        }
+    /* Contact */
+    form { display:grid; gap:12px; }
+    input, textarea, select { width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.02); color:var(--text); }
+    input::placeholder, textarea::placeholder { color: #7f8a9d; }
+    .form-row { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    .notice { font-size: 12px; color: var(--muted); }
 
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+    /* Footer */
+    footer { padding: 40px 0 60px; border-top: 1px solid rgba(255,255,255,.06); background: radial-gradient(800px 300px at 50% -10%, rgba(34,211,238,.12), transparent 60%); }
+    .foot { display:grid; grid-template-columns: 1.1fr .9fr; gap:18px; }
+    .foot small { color: var(--muted); }
 
-        /* Beautiful Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem 2.5rem;
-            margin: 0.5rem;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-            animation: bounceIn 1s ease-out 0.9s both;
-        }
+    /* Utilities */
+    .hide-mobile { display: initial; }
+    .show-mobile { display: none; }
 
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.3);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.6s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        .btn-primary {
-            background: var(--accent-gradient);
-            color: white;
-            box-shadow: var(--shadow-soft);
-            transform: translateY(0);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .btn-outline {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--text-dark);
-            border-color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Content Sections */
-        .section {
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 4rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: var(--border-radius);
-            padding: 2.5rem;
-            box-shadow: var(--shadow-soft);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--accent-gradient);
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        .card p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
-
-        /* Maps Section */
-        .maps-section {
-            background: var(--white);
-            padding: 6rem 2rem;
-        }
-
-        .maps-placeholder {
-            background: var(--light-bg);
-            border-radius: var(--border-radius);
-            padding: 4rem;
-            text-align: center;
-            border: 2px dashed #e2e8f0;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .maps-placeholder::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(from 0deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-            animation: rotate 8s linear infinite;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .maps-placeholder:hover::before {
-            opacity: 1;
-        }
-
-        .maps-placeholder:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.05);
-            transform: scale(1.02);
-        }
-
-        .maps-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .maps-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .maps-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        .maps-description {
-            color: var(--text-light);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Interactive Elements */
-        .interactive-btn {
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .interactive-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-
-        .interactive-btn:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
-        .interactive-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--dark-gradient);
-            color: white;
-            padding: 4rem 2rem 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer p {
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 2rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-
-        .social-link:hover {
-            background: var(--accent-gradient);
-            transform: translateY(-5px) scale(1.1);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .btn {
-                display: block;
-                margin: 0.5rem auto;
-                width: fit-content;
-            }
-        }
-
-        /* Scroll animations */
-        .fade-in-up {
-            opacity: 0;
-            transform: translateY(60px);
-            transition: var(--transition);
-        }
-
-        .fade-in-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 980px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .work, .grid.cols-3, .quotes { grid-template-columns: 1fr 1fr; }
+      .foot { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav ul { display:none; }
+      .hide-mobile { display:none; }
+      .show-mobile { display:inline-flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .work, .grid.cols-3, .quotes { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Willkommen bei FT-Studios</h1>
-            <p>Ihre Wunsch Webseite, einfach, schenll und schön</p>
-            <div class="hero-buttons">
-                <a href="#services" class="btn btn-primary">
-                    <i class="fas fa-rocket"></i>&nbsp;&nbsp;Entdecken
-                </a>
-                <a href="#contact" class="btn btn-outline">
-                    <i class="fas fa-envelope"></i>&nbsp;&nbsp;Kontakt
-                </a>
+  <!-- Header -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="Primary">
+      <a href="#top" class="logo" aria-label="FT‑Studios home">
+        <span class="logo-badge">FT</span>
+        <span>FT‑Studios</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#process">Process</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn-primary show-mobile" href="#contact">Let’s talk</a>
+      <a class="btn btn-outline hide-mobile" href="#contact">Let’s talk</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="card pad">
+          <div class="eyebrow" aria-hidden="true">Design • Development • Performance</div>
+          <h1>Websites that feel modern, move fast, and grow your business.</h1>
+          <p class="sub">At <strong>FT‑Studios</strong>, we craft responsive, user‑friendly websites and custom web apps that not only look beautiful but deliver measurable results. From concept to code, we build digital experiences that help you stand out.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contact">Start a project</a>
+            <a class="btn btn-outline" href="#work">See our work</a>
+          </div>
+        </div>
+        <div class="hero-showcase">
+          <div class="mockup">
+            <span class="badge">Projekts 1/27</span>
+          </div>
+          <div class="stripes">
+            <div class="stripe">
+              <div class="stat">350ms</div>
+              <div class="label">First Interaction</div>
+              <div class="pill">Ultra‑fast</div>
             </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="section" id="services">
-        <div class="container">
-            <h2 class="section-title fade-in-up">Unsere Services</h2>
-            <p class="section-subtitle fade-in-up">Entdecken Sie unsere vielfältigen Dienstleistungen und Lösungen</p>
-            
-            <div class="cards-grid">
-                <div class="card fade-in-up">
-                    <i class="fas fa-palette card-icon"></i>
-                    <h3>Design Excellence</h3>
-                    <p>Moderne, ansprechende Designs die Ihre Marke zum Leben erwecken und Ihre Kunden begeistern.</p>
-                </div>
-                
-                <div class="card fade-in-up">
-                    <i class="fas fa-code card-icon"></i>
-                    <h3>Development</h3>
-                    <p>Hochwertige, performante Weblösungen mit modernsten Technologien und Best Practices.</p>
-                </div>
-                
-                <div class="card fade-in-up">
-                    <i class="fas fa-mobile-alt card-icon"></i>
-                    <h3>Responsive Design</h3>
-                    <p>Perfekte Darstellung auf allen Geräten - von Desktop bis Smartphone, immer optimal.</p>
-                </div>
+            <div class="stripe">
+              <div class="stat">+38%</div>
+              <div class="label">Avg. conversion lift</div>
+              <div class="pill">Data‑driven</div>
             </div>
-
-            <button class="interactive-btn" onclick="showMessage()">
-                <i class="fas fa-magic"></i>&nbsp;&nbsp;Magie erleben
-            </button>
-        </div>
-    </section>
-
-    <!-- Maps Section -->
-    <section class="maps-section" id="maps">
-        <div class="container">
-            <div class="maps-placeholder fade-in-up">
-                <div class="maps-content">
-                    <i class="fas fa-map-marked-alt maps-icon"></i>
-                    <h3 class="maps-title">Google Maps Integration</h3>
-                    <p class="maps-description">Hier können Sie später Ihre Google Maps API einbinden und eine interaktive Karte anzeigen</p>
-                    <button class="interactive-btn" onclick="activateMap()">
-                        <i class="fas fa-map"></i>&nbsp;&nbsp;Karte aktivieren
-                    </button>
-                </div>
+            <div class="stripe">
+              <div class="stat">99.9%</div>
+              <div class="label">Uptime with monitoring</div>
+              <div class="pill">Reliable</div>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Contact Section -->
-    <section class="section" id="contact">
-        <div class="container">
-            <h2 class="section-title fade-in-up">Kontaktieren Sie uns</h2>
-            <p class="section-subtitle fade-in-up">Wir freuen uns auf Ihre Nachricht und helfen Ihnen gerne weiter</p>
-            
-            <div class="cards-grid">
-                <div class="card fade-in-up">
-                    <i class="fas fa-envelope card-icon"></i>
-                    <h3>E-Mail</h3>
-                    <p> </p>
-                </div>
-                
-                <div class="card fade-in-up">
-                    <i class="fas fa-phone card-icon"></i>
-                    <h3>Telefon</h3>
-                    <p>+49 176 59992286</p>
-                </div>
-                
-                <div class="card fade-in-up">
-                    <i class="fas fa-map-marker-alt card-icon"></i>
-                    <h3>Adresse</h3>
-                    <p>Holsen 32257<br>Stadt Bünde</p>
-                </div>
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">What we do</div>
+          <h2>From sleek concepts to powerful builds</h2>
+        </div>
+        <p class="lead">We create modern, responsive websites and fully customized web applications using the latest technologies—built for speed, accessibility, and SEO.</p>
+      </div>
+
+      <div class="grid cols-3">
+        <div class="card service">
+          <h3>Custom Websites</h3>
+          <p>Tailor‑made sites aligned with your brand and goals. Clean, scalable, and easy to manage.</p>
+          <span class="pill">Design • UX • CMS</span>
+        </div>
+        <div class="card service">
+          <h3>Web Applications</h3>
+          <p>Robust, secure apps with modern stacks and APIs. From MVPs to enterprise features.</p>
+          <span class="pill">React • Node • DB</span>
+        </div>
+        <div class="card service">
+          <h3>Redesign & Optimization</h3>
+          <p>Boost speed, usability, and conversions. Lighthouse, Core Web Vitals, and CRO focused.</p>
+          <span class="pill">Performance • SEO</span>
+        </div>
+        <div class="card service">
+          <h3>E‑commerce</h3>
+          <p>High‑converting storefronts with smooth checkout, analytics, and integrations.</p>
+          <span class="pill">Shopify • Headless</span>
+        </div>
+        <div class="card service">
+          <h3>Brand & Visuals</h3>
+          <p>Identity systems, design systems, and component libraries for consistency at scale.</p>
+          <span class="pill">Logos • Design System</span>
+        </div>
+        <div class="card service">
+          <h3>Maintenance</h3>
+          <p>Ongoing support, monitoring, and iteration so your site keeps delivering.</p>
+          <span class="pill">SLA • Monitoring</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">How we work</div>
+          <h2>A clear, collaborative process</h2>
+        </div>
+      </div>
+      <div class="timeline">
+        <div class="card step">
+          <div class="num">1</div>
+          <div>
+            <h3>Discover</h3>
+            <p>We listen to your goals, analyze user needs, and map success metrics. This forms the blueprint for everything that follows.</p>
+          </div>
+        </div>
+        <div class="card step">
+          <div class="num">2</div>
+          <div>
+            <h3>Design</h3>
+            <p>Low‑fi to hi‑fi prototypes, UX flows, and UI kits. We iterate quickly and collaboratively to lock the best direction.</p>
+          </div>
+        </div>
+        <div class="card step">
+          <div class="num">3</div>
+          <div>
+            <h3>Build</h3>
+            <p>Modern, accessible, and performant front‑ends with clean APIs and integrations. We ship in milestones to keep momentum.</p>
+          </div>
+        </div>
+        <div class="card step">
+          <div class="num">4</div>
+          <div>
+            <h3>Launch & Grow</h3>
+            <p>Deploy, monitor, and optimize. We track analytics and iterate for conversions, speed, and long‑term reliability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Featured work</div>
+          <h2>Recent projects</h2>
+        </div>
+        <p class="lead">A quick look at the kinds of experiences we design and build. (Replace these placeholders with your real projects.)</p>
+      </div>
+      <div class="work">
+        <a class="item" href="#" aria-label="Project 1">
+          <img alt="Project 1 mock" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="overlay">
+            <div>
+              <strong>Fintech dashboard</strong>
+              <div class="label">React • Node • Charts</div>
             </div>
+          </div>
+        </a>
+        <a class="item" href="#" aria-label="Project 2">
+          <img alt="Project 2 mock" src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="overlay">
+            <div>
+              <strong>Commerce storefront</strong>
+              <div class="label">Headless • Shopify</div>
+            </div>
+          </div>
+        </a>
+        <a class="item" href="#" aria-label="Project 3">
+          <img alt="Project 3 mock" src="https://images.unsplash.com/photo-1529336953121-ad5a0d43d0bb?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="overlay">
+            <div>
+              <strong>Marketing site</strong>
+              <div class="label">Next‑Gen Landing</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">About FT‑Studios</div>
+          <h2>We build digital experiences, not just websites</h2>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <h3>Folgen Sie uns</h3>
-            <p>Bleiben Sie mit uns in Kontakt über unsere sozialen Medien</p>
-            
-            <div class="social-links">
-    <a href="https://deinewebseite.de" class="social-link" target="_blank">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-    <a href="https://twitter.com/deinprofil" class="social-link" target="_blank">
-        <i class="fab fa-twitter"></i>
-    </a>
-    <a href="https://www.instagram.com/ferro.ke?igsh=czVkZTVwbGMxMnRi&utm_source=qr" class="social-link" target="_blank">
-        <i class="fab fa-instagram"></i>
-    </a>
-    <a href="https://github.com/ferristhiel" class="social-link" target="_blank">
-        <i class="fab fa-linkedin-in"></i>
-    </a>
-</div>
-            
-            <p style="opacity: 0.6; font-size: 0.9rem;">&copy; 2025 FT-Studios. Alle Rechte vorbehalten.</p>
+      </div>
+      <div class="grid cols-3">
+        <div class="card pad">
+          <h3>Our belief</h3>
+          <p>Every business deserves a digital presence as unique as its vision. We partner with you to translate that vision into a fast, engaging product.</p>
         </div>
-    </footer>
+        <div class="card pad">
+          <h3>Our mission</h3>
+          <p>Help you stand out with websites that are lightning‑fast, accessible, and powered by the latest technologies.</p>
+        </div>
+        <div class="card pad">
+          <h3>Stack & tooling</h3>
+          <p>Modern frameworks (React/Next), type‑safe APIs, headless CMS, analytics, and automated testing—built for scale and iteration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">What clients say</div>
+          <h2>Trusted by growing brands</h2>
+        </div>
+      </div>
+      <div class="quotes">
+        <blockquote>
+          “FT‑Studios turned our idea into a beautiful, high‑performing site. Conversions jumped within weeks.”
+          <div class="by">— Alex M., D2C Founder</div>
+        </blockquote>
+        <blockquote>
+          “Impeccable attention to detail and speed. The new web app made onboarding twice as fast.”
+          <div class="by">— Priya S., SaaS PM</div>
+        </blockquote>
+        <blockquote>
+          “They think like partners, not vendors. Clear process, strong communication, great results.”
+          <div class="by">— Jonas K., COO</div>
+        </blockquote>
+      </div>
+    </div>
+  </section>
 
-        // Scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Let’s build</div>
+          <h2>Tell us about your project</h2>
+        </div>
+        <p class="lead">Share a few details and we’ll get back within 1–2 business days. Prefer email? <a href="mailto:hello@ftstudios.example">hello@ftstudios.example</a></p>
+      </div>
+      <div class="grid" style="grid-template-columns: 1.1fr .9fr;">
+        <div class="card pad">
+          <form id="contact-form" action="#" method="post" novalidate>
+            <div class="form-row">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" placeholder="Your name" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@company.com" required />
+              </label>
+            </div>
+            <div class="form-row">
+              <label>
+                <span>Company</span>
+                <input type="text" name="company" placeholder="Your company" />
+              </label>
+              <label>
+                <span>Budget</span>
+                <select name="budget">
+                  <option value="" disabled selected>Select a range</option>
+                  <option>€0 – €5k</option>
+                  <option>€6k – €25k</option>
+                  <option>€25k – €50k</option>
+                  <option>€50k+</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              <span>Project details</span>
+              <textarea name="message" rows="6" placeholder="What are you building? Goals, timeline, must‑haves…" required></textarea>
+            </label>
+            <label style="display:flex; gap:10px; align-items:center;">
+             <input type="checkbox" name="consent" required />   
+              <span>I agree to be contacted.</span>
+            </label>
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="notice">By submitting, you consent to our processing your information. We’ll never share your data.</p>
+          </form>
+        </div>
+        <div class="card pad">
+          <h3>Why FT‑Studios?</h3>
+          <ul>
+            <li>Performance‑first builds (Core Web Vitals)</li>
+            <li>Accessibility & SEO baked in</li>
+            <li>Clear project milestones</li>
+            <li>Post‑launch support & iteration</li>
+          </ul>
+          <h3 style="margin-top:18px;">Tech we love</h3>
+          <p class="label">React, Next.js, TypeScript, Node, Headless CMS, Tailwind, PostgreSQL, Vercel, CI/CD</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+  <!-- Footer -->
+  <footer>
+    <div class="container foot">
+      <div>
+        <div class="logo" style="margin-bottom:10px;">
+          <span class="logo-badge">FT</span>
+          <span>FT-Studios</span>
+        </div>
+        <small>© <span id="year"></span> FT‑Studios. All rights reserved.</small>
+      </div>
+      <div style="justify-self:end; align-self:end; display:flex; gap:10px;">
+        <a class="pill" href="#services">Services</a>
+        <a class="pill" href="#work">Work</a>
+        <a class="pill" href="#process">Process</a>
+        <a class="pill" href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            observer.observe(el);
-        });
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Interactive button functions
-        function showMessage() {
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i>&nbsp;&nbsp;Magie aktiviert!';
-            btn.style.background = 'linear-gradient(135deg, #4CAF50 0%, #45a049 100%)';
-            
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '';
-            }, 2000);
-        }
-
-        function activateMap() {
-            const mapsPlaceholder = document.querySelector('.maps-placeholder');
-            const btn = event.target;
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;Wird geladen...';
-            btn.disabled = true;
-            
-            setTimeout(() => {
-                mapsPlaceholder.innerHTML = `
-                    <div class="maps-content">
-                        <i class="fas fa-check-circle maps-icon" style="color: #4CAF50;"></i>
-                        <h3 class="maps-title">Karte bereit!</h3>
-                        <p class="maps-description">Ihre Google Maps Integration ist bereit zur Implementierung. Fügen Sie hier Ihren API-Schlüssel hinzu.</p>
-                        <div style="background: #e8f5e8; padding: 1rem; border-radius: 8px; margin-top: 1rem; font-family: monospace; color: #2e7d32;">
-                            &lt;script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"&gt;&lt;/script&gt;
-                        </div>
-                    </div>
-                `;
-            }, 1500);
-        }
-
-        // Add some interactive hover effects
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = '';
-            });
-        });
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-        });
-
-        // Add loading animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '1';
-        });
-
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.5s ease-in-out';
-    </script>
+    // Light form validation
+    const form = document.getElementById('contact-form');
+    form.addEventListener('submit', (e) => {
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        alert('Please complete the required fields.');
+      } else {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        console.log('Form submission (demo):', data);
+        form.reset();
+        alert('Thanks! We\'ll contact you soon');
+      }
+    });
+  </script>
 </body>
 </html>
